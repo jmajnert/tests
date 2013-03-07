@@ -1,0 +1,12 @@
+<html>
+<body>
+<script type="text/javascript">
+window.addEventListener('storage', eventCaught, false);
+function eventCaught(){
+    document.getElementById('result').innerHTML="<p>Event!</p>";
+    parent.postMessage("iframe2","*");
+}
+</script>
+<div id='result'>No result</div>
+</body>
+</html>

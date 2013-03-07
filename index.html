@@ -1,0 +1,58 @@
+<html>
+<head><title>localStorage event propagation test</title></head>
+<body style="background-color: gray;">
+<div id="result"><p>Test not run</p></div>
+<div id="reason"></div>
+<script type="text/javascript">
+result=document.getElementById("result");
+reason=document.getElementById("reason");
+
+window.addEventListener('storage',eventCaught,false);
+window.addEventListener('message',messageReceived,false);
+
+//main,iframe1,iframe2
+events=[false,false,false];
+
+function messageReceived(e){
+    if(e.data=="iframe1"){
+        events[1]=true;
+    }else if(e.data=="iframe2"){
+        events[2]=true;
+    }
+    if(events[0]==false && events[1]==true && events[2]==true){
+        verdict(true,"Events fired correctly");
+    }
+}
+function eventCaught(){
+    //should not happen in main window
+    events[0]=true;
+    verdict(false,"Event fired on main window");
+}
+function verdict(v,msg){
+    if(v==true){
+        result.innerHTML="<p>Test passed</p>";
+        reason.innerHTML=msg;
+        document.body.style.background="green";
+    }else{
+        document.getElementById("result").innerHTML="<p>Test failed</p>";
+        reason.innerHTML=msg;
+        document.body.style.background="red";
+    }
+}
+function modify_local_storage(){
+    //initially set the result to fail
+    verdict(false,"Events not fired");
+    if(null===localStorage.getItem("a")){
+        localStorage.setItem("a","b");
+    }else{
+        localStorage.clear();
+    }
+}
+</script>
+<input type="button" onclick="modify_local_storage();" value="Run Test">
+<div>
+<iframe id="iframe1" src="iframe1.html" width="100px" height="100px" scrolling="no"></iframe>
+<iframe id="iframe2" src="iframe2.html" width="100px" height="100px" scrolling="no"></iframe>
+</div>
+</body>
+</html>
