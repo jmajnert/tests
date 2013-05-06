@@ -10,6 +10,9 @@ reason=document.getElementById("reason");
 window.addEventListener('storage',eventCaught,false);
 window.addEventListener('message',messageReceived,false);
 
+//main,iframe1,iframe2
+events=[false,false,false];
+
 function messageReceived(e){
     if(e.data=="iframe1"){
         events[1]=true;
@@ -37,7 +40,7 @@ function verdict(v,msg){
     }
 }
 function modify_local_storage(){
-    //main,iframe1,iframe2
+    //reset events to initial state
     events=[false,false,false];
     //initially set the result to fail
     verdict(false,"Events not fired");
