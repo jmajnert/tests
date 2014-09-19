@@ -1,0 +1,14 @@
+<html>
+<head><title>window.open test</title></head>
+<body>
+<script>
+function open(){
+  window.open('http://google.com');
+}
+window.onload=function () {
+  window.open('http://google.pl');
+}
+</script>
+<button onclick="open()">open</button>
+</body>
+</html>
