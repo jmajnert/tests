@@ -1,0 +1,24 @@
+<html>
+<body onload="test();">
+</body>
+<script>
+function test() {
+  if (navigator.registerProtocolHandler) {
+    var str = "navigator.registerProtocolHandler is supported!";
+    console.log(str);
+    document.title = str;
+    // registerProtocolHandler from Mozilla Developer Network
+    navigator.registerProtocolHandler("web+burger",
+                                      "http://jmajnert.github.io/tests/customProtocols/?uri=%s",
+                                      "Burger handler");
+    str = "burger protocol handler registered!";
+    console.log(str);
+    document.title = str;
+  } else {
+    var str = "navigator.registerProtocolHandler is not supported!";
+    console.log(str);
+    document.title = str;
+  }
+}
+</script>
+</html>
