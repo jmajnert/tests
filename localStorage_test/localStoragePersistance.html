@@ -9,7 +9,7 @@ function setValue(){
   localStorage.setItem("item1", "item1 value");
 }
 function runTest(){
-  if(checkIfSet)
+  if(checkIfSet())
     document.getElementById("result").innerHTML="Result: value was set properly in local storage upon page load: PASS";
   setValue();
 }
