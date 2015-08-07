@@ -1,0 +1,27 @@
+<html>
+<script>
+function checkIfSet(){
+  var value = localStorage.getItem("item1");
+  if(value === "item1 value") return true;
+  return false;
+}
+function setValue(){
+  localStorage.setItem("item1", "item1 value");
+}
+function runTest(){
+  if(checkIfSet)
+    document.getElementById("result").innerHTML="Result: value was set properly in local storage upon page load: PASS";
+  setValue();
+}
+</script>
+<body onload="runTest()">
+<div id="header"><h1>Local storage persistance test</h1></div>
+<div id="instructions">
+  <ul>
+    <li>If this is your first visit to this test, reload the page</li>
+    <li>If you reloaded the page, check the test result below</li>
+  </ul>
+</div>
+<div id="result">Result: value was not set in local storage: FAIL</div>
+</body>
+</html>
