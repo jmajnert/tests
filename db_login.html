@@ -1,0 +1,26 @@
+<html>                                                                                                                                                                                                                                  [0/0]
+<head>
+<script>
+function Sformatuj() {
+  var pole = document.getElementById('input_field');
+  var nr = 0;
+  var licz = 0;
+  while (nr<pole.value.length) {
+    var znak = pole.value.substr(nr,1);
+    ++licz;
+    if (licz == 3) {
+      if (znak != " ") {
+        pole.value = pole.value.substr(0,nr)+" "+pole.value.substr(nr);
+      }
+    licz = 0;
+    }
+    ++nr;
+  }
+  return true;
+}
+</script>
+</head>
+<body>
+<input id='input_field' type="text" value="" size="12" maxlength="14" onkeydown="Sformatuj()" onblur="Sformatuj()" onCopy="return false" onDrag="return false" onDrop="return false" onPaste="return false" onCut="return false"/>
+</body>
+</html>
