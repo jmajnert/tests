@@ -22,13 +22,26 @@ function getNotificationPermission() {
     // Do something with the granted permission.
   });
 }
-function triggerPermissionDialogs() {
-  triggerDownload(1);
-  getNotificationPermission();
+function getMicrophonePermission() {
+  navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(function(stream) {
+        console.log('You let me use your mic!')
+      })
+      .catch(function(err) {
+        console.log('No mic for you!')
+      });
 }
+function triggerPermissionDialogs() {
+  if (document.getElementById("download1").checked) triggerDownload(1);
+}
+
 </script>
 </head>
 <body>
-<a href="#" onclick="triggerPermissionDialogs()">Trigger permission requests</a>
+  <div><input type="checkbox" id="download1"><label for="download1">Download 1</label></div>
+  <div><input type="checkbox" id="download2"><label for="download2">Download 2</label></div>
+  <div><input type="checkbox" id="notifications"><label for="notifications">Notifications</label></div>
+  <div><input type="checkbox" id="microphone"><label for="microphone">Microphone</label></div>
+  <div><input type="button" value="Request permissions" onclick="triggerPermissionDialogs()"></div>
 </body>
 </html>
