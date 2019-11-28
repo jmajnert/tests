@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Trigger 2 downloads</title>
+<title>Permissions test</title>
 <script>
 function triggerDownload(id) {
   // Based on http://stackoverflow.com/a/27280611
@@ -21,6 +21,7 @@ function getNotificationPermission() {
     }
     // Do something with the granted permission.
   });
+  window.setTimeout(triggerDownload(3), 3000);
 }
 function getMicrophonePermission() {
   navigator.mediaDevices.getUserMedia({ audio: true })
@@ -32,10 +33,11 @@ function getMicrophonePermission() {
       });
 }
 function triggerPermissionDialogs() {
+  if (document.getElementById("microphone").checked) getMicrophonePermission(1);
   if (document.getElementById("download1").checked) triggerDownload(1);
   if (document.getElementById("download2").checked) triggerDownload(2);
   if (document.getElementById("notifications").checked) getNotificationPermission(1);
-  if (document.getElementById("microphone").checked) getMicrophonePermission(1);
+  
 }
 
 </script>
