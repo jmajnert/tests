@@ -25,22 +25,26 @@
   {
     writeToScreen("CONNECTED");
     doSend("WebSocket rocks");
+    console.log("onOpen: " + evt);
   }
 
   function onClose(evt)
   {
     writeToScreen("DISCONNECTED");
+    console.log("onCLose: " + evt);
   }
 
   function onMessage(evt)
   {
     writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
     websocket.close();
+    console.log("onMessage: " + evt);
   }
 
   function onError(evt)
   {
     writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+    console.log("onError: " + evt);
   }
 
   function doSend(message)
