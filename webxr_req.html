@@ -2,8 +2,9 @@
 <head>
 <title>WebXR request while script still running</title>
 <script>
+var pr;
 function fn() {
-var pr = navigator.xr.requestSession("immersive-vr");
+pr = navigator.xr.requestSession("immersive-vr");
 //for(i=0;i<1000;i++) document.write("<p>Running...</p>");
 //document.write("<p>Script finished</p>");
 }
