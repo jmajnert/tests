@@ -1,0 +1,18 @@
+<html>
+<head>
+<title>WebXR request while script still running</title>
+<script>
+
+function fn() {
+  var pr = navigator.xr.requestSession("immersive-vr");
+  document.getElementById('img').innerHTML='<img src="https://www.nasa.gov/sites/default/files/thumbnails/image/hs-2015-02-a-hires_jpg.jpg" />';
+}
+  </script>
+</head>
+<script>
+</script>
+<body>
+  <input type="button" value="Enter VR" onclick="fn()" />
+  <div id="img"></div>
+</body>
+</html>
