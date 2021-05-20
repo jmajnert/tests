@@ -3,7 +3,7 @@
     <title>Codec Support Check</title>
     <script>
       function checkSupport() {
-        var codec_string = document.getElementById("codec_string");
+        var codec_string = document.getElementById("codec_string").value;
         var result = "Not supported";
         if (MediaSource.isTypeSupported('video/webm; codecs="' + codec_string + '"')) {
           result = "Supported";
