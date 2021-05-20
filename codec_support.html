@@ -1,0 +1,11 @@
+<html>
+  <head><title>Codec Support Check</title></head>
+  <body>
+    <input type="text" value="vp09.00.10.08"/>
+    <input type="button" value="Check" onclick="checkSupport()"/>
+    <p>
+      if (MediaSource.isTypeSupported('video/webm; codecs="vp09.00.10.08"')) {
+  log('> VP9, Profile 0, level 1, bit depth 8 (later fields defaulted)');
+}</p>
+  </body>
+</html>
