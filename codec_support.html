@@ -1,12 +1,21 @@
 <html>
-  <head><title>Codec Support Check</title></head>
+  <head>
+    <title>Codec Support Check</title>
+    <script>
+      function checkSupport() {
+        var codec_string = document.getElementById("codec_string");
+        var result = "Not supported";
+        if (MediaSource.isTypeSupported('video/webm; codecs="' + codec_string + '"')) {
+          result = "Supported";
+        }
+        document.getElementById("result").innerHTML = result;          
+      }
+    </script>
+  </head>
   <body>
-    <input type="text" value="vp09.00.10.08"/>
+    <input id="codec_string" type="text" value="vp09.00.10.08"/>
     <input type="button" value="Check" onclick="checkSupport()"/>
-    <p>
-      <code>if (MediaSource.isTypeSupported('video/webm; codecs="vp09.00.10.08"')) {
-  log('> VP9, Profile 0, level 1, bit depth 8 (later fields defaulted)');
-        }</code>
-        </p>
+    <p>Checking <code>MediaSource.isTypeSupported('video/webm; codecs="..."</code></p>
+    <p id="result"></p>
   </body>
 </html>
