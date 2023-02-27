@@ -1,8 +1,23 @@
 <html>                                                                           
-  <head><title>Fullscreen test</title></head>                                    
+  <head>
+    <title>Fullscreen test</title>
+    <script>
+      var inFS = false;
+      function toggleFullscreen() {
+        if (inFS) {
+          inFS = false;
+          document.exitFullscreen();
+        }
+        else {
+          inFS = true;
+          document.requestFullscreen();
+        }
+      }
+    </script>
+  </head>
   <body>                                                                         
     <div style="background-color:blue;height:100px;width:100px;">                
-    <div style="background-color: red;height:50px;width:50px;" onclick="requestFullscreen();">Test</div>
+    <div style="background-color: red;height:50px;width:50px;" onclick="toggleFullscreen();">Test</div>
     </div>                                                                       
   </body>                                                                        
 </html>
