@@ -2,15 +2,16 @@
   <head>
     <title>Fullscreen test</title>
     <script>
-      var inFS = false;
       function toggleFullscreen() {
-        if (inFS) {
-          inFS = false;
+        let elem = document.querySelector("div");
+        if (!document.fullscreenElement) {
+          elem.requestFullscreen().catch((err) => {
+            alert(
+              `Error attempting to enable fullscreen mode: ${err.message} (${err.name})`
+            );
+          });
+        } else {
           document.exitFullscreen();
-        }
-        else {
-          inFS = true;
-          document.requestFullscreen();
         }
       }
     </script>
