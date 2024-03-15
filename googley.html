@@ -97,10 +97,20 @@
     mouse_position.y = e.pageY;
     draw();
   }
+  function updateTouch(e) {
+    const touches = e.changedTouches;
+    for (let i = 0; i < touches.length; i++) {
+      mouse_position.x = touches[i].pageX;
+      mouse_position.y = touches[i].pageY;
+      break; // take first touch coords
+    }
+    draw();
+  }
   function setup() {
     window.addEventListener('resize', draw);
     document.addEventListener('mousemove', updateMousePosition);
     document.addEventListener('mouseenter', updateMousePosition);
+    document.addEventListener('touchmove', updateTouch);
     draw();
   }
   </script>
