@@ -1,0 +1,117 @@
+<html>
+<head>
+  <title>Googly eyes</title>
+  <script>
+  var mouse_position = { 'x': 0, 'y': 0};
+
+  function draw_eye(ctx, eyeball_size, position, mouse_position, scene_size) {
+    ctx.fillStyle = 'black';
+    ctx.strokeStyle = 'black';
+
+    //eyeball
+    ctx.beginPath();
+    ctx.arc(position.x, position.y, eyeball_size, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.closePath()
+
+    // pupil
+    var pupil_size = eyeball_size / 2;
+    var max_tilt = (eyeball_size - pupil_size) * 2 / 3;
+
+    var max_distance_x = position.x;
+    if (mouse_position.x > position.x) {
+      max_distance_x = scene_size.w - position.x;
+    }
+    var mouse_distance_x = position.x - mouse_position.x;
+    var tilt_x = mouse_distance_x * 1.0 / max_distance_x;
+    var pupil_tilt_x = tilt_x * max_tilt;
+
+    var max_distance_y = position.y;
+    if (mouse_position.y > position.y) {
+      max_distance_y = scene_size.h - position.y;
+    }
+    var mouse_distance_y = position.y - mouse_position.y;
+    var tilt_y = mouse_distance_y * 1.0 / max_distance_y;
+    var pupil_tilt_y = tilt_y * max_tilt;
+
+    ctx.beginPath();
+    ctx.arc(position.x - pupil_tilt_x, position.y - pupil_tilt_y, pupil_size, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.fill();
+    ctx.closePath();
+
+
+    return; // debugging code below
+    ctx.strokeStyle = 'red';
+    ctx.fillStyle = 'red';
+
+    // mouse position
+    ctx.beginPath();
+    ctx.arc(mouse_position.x, mouse_position.y, 5, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.closePath();
+
+    // center of pupil
+    ctx.beginPath();
+    ctx.arc(position.x - pupil_tilt_x, position.y - pupil_tilt_y, 5, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.closePath();
+
+    // max pupil tilt circle
+    pupil_tilt_circle = new Path2D();
+    pupil_tilt_circle.arc(position.x, position.y, eyeball_size - pupil_size, 0, 2 * Math.PI);
+    ctx.stroke(pupil_tilt_circle);
+
+    // line of sight
+    mouse_line = new Path2D();
+    mouse_line.moveTo(mouse_position.x, mouse_position.y);
+    mouse_line.lineTo(position.x, position.y);
+    ctx.stroke(mouse_line);
+  }
+  function draw(){
+    // Get the canvas element form the page
+    var canvas = document.getElementById('canvas');
+
+    //resize the canvas to occupy the full page
+    var W = window.innerWidth;
+    var H = window.innerHeight;
+    // Set the same to the canvas
+    canvas.width = W;
+    canvas.height = H;
+
+    // Make a 2D context
+    var ctx = canvas.getContext('2d');
+
+    var eyeball_size = H / 10;
+    if (W < H) eyeball_size = W / 5;
+
+    var center_x = W / 2;
+    var left_eye_x = center_x - eyeball_size * 1.1
+    var right_eye_x = center_x + eyeball_size * 1.1
+
+    draw_eye(ctx, eyeball_size, {'x': left_eye_x, 'y': H / 2}, mouse_position, {'w': W, 'h': H})
+    draw_eye(ctx, eyeball_size, {'x': right_eye_x, 'y': H / 2}, mouse_position, {'w': W, 'h': H})
+  }
+  function updateMousePosition(e) {
+    mouse_position.x = e.pageX;
+    mouse_position.y = e.pageY;
+    draw();
+  }
+  function setup() {
+    window.addEventListener('resize', draw);
+    document.addEventListener('mousemove', updateMousePosition);
+    document.addEventListener('mouseenter', updateMousePosition);
+    draw();
+  }
+  </script>
+  <style>
+  * { margin: 0; padding: 0;}
+
+  body, html { height:100%; }
+
+  </style>
+</head>
+<body onload='setup()'>
+<canvas id='canvas'>Please use a better browser! </canvas>
+</body>
+</html>
